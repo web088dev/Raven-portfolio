@@ -211,50 +211,49 @@
     cart.push({ name: productName, price: productPrice });
     displayCart();
   }
-
   function removeFromCart(index) {
     cart.splice(index, 1); // remove item
     displayCart();
   }
-
-  function displayCart() {
+function displayCart() {
   const cartList = document.getElementById("cart-items");
   cartList.innerHTML = "";
 
-  let total = 0; // start at 0
-
+  let total = 0;
   cart.forEach((item, index) => {
     const li = document.createElement("li");
     li.innerHTML = `${item.name} - ${item.price} 
       <button onclick="removeFromCart(${index})">Remove</button>`;
     cartList.appendChild(li);
-
-    // Convert "$100" into a number and add it
     total += parseFloat(item.price.replace("$", ""));
   });
-
-  // Show total at the bottom
   const totalElement = document.createElement("p");
   totalElement.innerHTML = `<strong>Total: $${total.toFixed(2)}</strong>`;
   cartList.appendChild(totalElement);
+} 
+function toggleCart() {
+  const cartSection = document.getElementById("cart");
+  if (cartSection.style.display === "none") {
+    cartSection.style.display = "block";
+    displayCart(); // refresh items + total when opening
+  } else {
+    cartSection.style.display = "none";
+  }
 }
-
-    });
-  }
-
-  function toggleCart() {
-    const cartSection = document.getElementById("cart");
-    cartSection.style.display = cartSection.style.display === "none" ? "block" : "none";
-  }
-
   function togglePayment() {
     const paymentSection = document.getElementById("payment");
     paymentSection.style.display = paymentSection.style.display === "none" ? "block" : "none";
   }
+   function toggleCardFields(method) {
+  const cardFields = document.getElementById("card-fields");
+  if (method === "credit" || method === "debit") {
+    cardFields.style.display = "block";
+  } else {
+    cardFields.style.display = "none";
+  }
+}
 </script>
-
-
-
 </body>
 </html>
+
 
